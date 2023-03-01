@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Line
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Line\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=newColor
+comment1.target=void\ cambioColor(java.lang.String)
+comment2.params=X1\ Y1\ X2\ Y2
+comment2.target=Line(double,\ double,\ double,\ double)
+comment3.params=
+comment3.target=void\ makeVisible()
+comment4.params=
+comment4.target=void\ makeInvisible()
+comment4.text=\r\n\ Make\ this\ rectangle\ invisible.\ If\ it\ was\ already\ invisible,\ do\ nothing.\r\n
+comment5.params=
+comment5.target=void\ draw()
+comment6.params=
+comment6.target=void\ erase()
+comment6.text=\r\n\ Erase\ the\ rectangle\ on\ screen.\r\n
+comment7.params=newColor
+comment7.target=void\ setColor(java.lang.String)
+comment8.params=
+comment8.target=java.lang.String\ getColor()
+numComments=9

@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Guard
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Guard\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Guard()
+comment2.params=x\ y
+comment2.target=void\ arriveGuard(int,\ int)
+comment2.text=\r\n\ This\ method\ displays\ the\ guard\ in\ a\ position\ given\r\n\ @Parameters\ x\ ,\ y\ coordinates\ \r\n\ @Return\r\n
+numComments=3
