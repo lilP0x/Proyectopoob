@@ -9,18 +9,21 @@ public class Alarm
 {
     private Rectangle alarm;
     private boolean bandera;
+    private boolean confirm;
     
-    Alarm (){
-    alarm = new Rectangle();
+    public Alarm (){
+        alarm = new Rectangle();
+        confirm = true;
     }
     
-    public void alarm(String color, boolean bandera){
+    public void display(String color, boolean bandera){
         if (bandera){
             alarm.changeColor("red");
-            alarm.makeVisible();  
+            alarm.makeVisible();
         }
     }
     public boolean status(){
-    return bandera;
+        confirm = true; 
+        return confirm;
     }
 }

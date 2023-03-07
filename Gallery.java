@@ -1,4 +1,5 @@
-
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.geom.Line2D;
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,15 +18,14 @@ public class Gallery
 {
     private boolean isVisible;
     private String color = "black";
-    public Line lineR;
-    private ArrayList<Line> factory;
     private boolean ok = true;
-    private Rectangle guard;
+    private Guard guard;
     private Circle sculture;
     private Rectangle alarm;
-    private ArrayList<Line> guardTracker;
-    private Polygon room;
-    private Point punto;
+    public ArrayList<Line> guardTracker;
+    private Room room;
+    public Point punto;
+    public static HashMap <String, Room> Habitaciones = new HashMap <String, Room> ();
     
     /**
      * The contructor of this class initialize all the objects that the class
@@ -34,11 +34,10 @@ public class Gallery
      * @Return
      */
     public Gallery(String color, int matriz[][]){
-        factory = new ArrayList();
         guardTracker = new ArrayList();
         isVisible = false;
         createRoom(color, matriz);
-        guard = new Rectangle();
+        guard = new Guard();
         sculture = new Circle();
         alarm = new Rectangle();
     }
@@ -49,33 +48,8 @@ public class Gallery
      * @Return
      */
     private void createRoom(String color, int matriz[][]){
-        int x1 = 0,x2 = 0, y1 = 0,y2 = 0, i;
-        int xpoints[] = new int[matriz.length-1];
-        int ypoints[] = new int[matriz.length-1];
-        for (i = 0; i < matriz.length-1; i++) {
-            x1 = matriz[i][0];
-            y1 = matriz[i][1];
-            xpoints[i] = x1;
-            ypoints[i] = y1;
-            x2 = matriz[i+1][0];
-            y2 = matriz[i+1][1];
-            factory.add(new Line(x1,y1,x2,y2));
-        } 
-        room = new Polygon(xpoints,ypoints, matriz.length-1);
-        for(Line a:factory){
-            a.cambioColor(color);
-        }
-    }
-    /**
-     * This method make visible the objects in the array factory
-     * @Parameters
-     * @Return
-     */
-    public void makeVisible(){
-        isVisible = true;
-        for(Line a:factory){
-            a.makeVisible();
-        }
+        room = new Room(color,matriz);
+        Habitaciones.put(color,room);
     }
     /**
      * This method determines the position of the sculture 
@@ -106,11 +80,10 @@ public class Gallery
      * @Parameters x , y coordinates 
      * @Return
      */
-    public void displaySculture(int x, int y){
-        String colorSculture = "black";
-        for(Line a:factory){
-            colorSculture = a.getColor();
-        }
+    public void displaySculture(int x, int y, String color){
+        Room habitacion;
+        habitacion = Habitaciones.get(color);
+        String colorSculture = habitacion.getColor();
         sculture.changeColor(colorSculture);
         sculture.moveHorizontal(x); //70
         sculture.moveVertical(y); //10
@@ -122,55 +95,44 @@ public class Gallery
      * @Parameters x , y coordinates 
      * @Return
      */
-    public void moveGuard(int x, int y){
-        int position[] = new int[2];
-        position = getPositionGuard();
-        punto = new Point(x,y);
-        boolean error;
-        error = room.contains(punto);   
-        if (position[0] != x && error){
-            guard.moveHorizontal(x);
-        }
-        if (position[1] != y && error){
-            guard.moveVertical(y);
-        }
-        if (error){
-            guardTracker.add(new Line(position[0],position[1],x,y));
-        }
-        if(error){
-            for(Line a:guardTracker){
-                a.makeVisible();
-            }
-        }
+    public void moveGuard(String color, int x, int y){
+        guard.moveGuard(x,y);
     }
     /**
      * This method displays the guard in a position given
      * @Parameters x , y coordinates 
      * @Return
      */
-    public void arriveGuard(int x, int y){
-        String colorGuard = "black";
+    public void arriveGuard(String color, int x, int y){
+        Room habitacion;
         boolean a;
         a = alarm.getVisible();
-        if (a == true){
-            for(Line b:factory){
-                colorGuard = b.getColor();
-            }
-            guard.changeColor(colorGuard);
-            guard.moveHorizontal(x); //70
-            guard.moveVertical(y); //10
-            guard.makeVisible();
-        }
+
+        habitacion = Habitaciones.get(color);
+        String colorGuard = habitacion.getColor();
+        guard.arriveGuard(x,y);
+        
+    }
+    /**
+     * This method make visible the objects in the array factory
+     * @Parameters
+     * @Return
+     */
+    public void makeVisible(String color){
+        isVisible = true;
+        Room habitacion;
+        habitacion = Habitaciones.get(color);
+        habitacion.makeVisible();
     }
     /**
      * Make objects invisible. If it was already invisible, do nothing.
      * @Parameters
      * @Return
      */
-    public void makeInvisible(){
-        for(Line a:factory){
-            a.makeInvisible();
-        }
+    public void makeInvisible(String color){
+        Room habitacion;
+        habitacion = Habitaciones.get(color);
+        habitacion.makeInvisible();
         isVisible = false;
         guard.makeInvisible();
         sculture.makeInvisible();

@@ -1,4 +1,3 @@
- 
 
 import java.awt.*;
 
@@ -184,7 +183,7 @@ public class Rectangle{
             canvas.erase(this);
         }
     }
-        public int getPositionX(){
+    public int getPositionX(){
         return xPosition;
     }
     public int getPositionY(){
